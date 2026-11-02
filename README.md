@@ -48,4 +48,8 @@ Ask Claude any of:
 - "Which skills should I use here?"
 - `/skill-recommender`
 
-It inspects the session (your messages, repo, branch, diff), gathers real installed skills, ranks them, and returns 5 (minimum) to 10 with a reason and timing for each.
+It inspects the session (your messages, repo, branch, diff), gathers your installed skills, then **searches GitHub** (repos tagged `claude-skills`, `SKILL.md` files, "awesome" lists, with a web-search fallback) for community skills that fit. It reads each candidate's `SKILL.md`, vets third-party ones for red flags (remote script execution, secret access, etc.), and returns 5 (minimum) to 10 ranked picks. Each pick shows its origin (Anthropic / plugin / yours / community), install status, risk, source link, and a one-line install command.
+
+Preferences you can add to your question: `official only`, `installed only`, or `include community` (default).
+
+It never installs anything without your explicit yes. Requires the `gh` CLI for the best results; falls back to web search, then to installed skills only.
